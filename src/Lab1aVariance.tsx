@@ -75,6 +75,14 @@ const Lab1aVariance: React.FC = () => {
     const localData = localStorage.getItem("task");
 		let currStepString = localStorage.getItem("step");
 		let currStep = currStepString ? parseInt(currStepString, 10) : 1;
+		if (currStep === 7) {
+			Object.keys(localStorage).forEach((key) => {
+					if (key !== 'lab-token' && key !== 'token') {
+							localStorage.removeItem(key);
+					}
+			});
+			return;
+	};
 		setAvailableStep(steps.slice(0, currStep+1));
 
     if (localData) {
