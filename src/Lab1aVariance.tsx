@@ -21,14 +21,14 @@ type Lab1AVariant = {
   variant: GeneratedLab1AVariance;
 };
 
+const steps = ["Задание", "Шаг 1", "Шаг 2", "Шаг 3", "Шаг 4", "Шаг 5", "Шаг 6", "Результат"];
+
 const Lab1aVariance: React.FC = () => {
   const [data, setData] = useState<Lab1AVariant | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [activeStep, setActiveStep] = useState<number>(0);
-
-
-  const steps = ["Задание", "Шаг 1", "Шаг 2", "Шаг 3", "Шаг 4", "Шаг 5", "Шаг 6", "Результат"];
+	const [availableStep, setAvailableStep] = useState<string[]>(steps.slice(0, 2));
 
 	let currStepString = localStorage.getItem("step");
 	let currStep = currStepString ? parseInt(currStepString, 10) : 1;
@@ -36,7 +36,13 @@ const Lab1aVariance: React.FC = () => {
 		localStorage.setItem("step", "1")
 	}
 
-  const result = steps.slice(0, currStep+1);
+	const changeAvailableStep = () => {
+		let currStepString = localStorage.getItem("step");
+		let currStep = currStepString ? parseInt(currStepString, 10) : 1;
+		currStep++
+		console.log(currStep)
+		setAvailableStep(steps.slice(0, currStep));
+	};
 
   const fetchData = async () => {
     setLoading(true);
@@ -67,6 +73,10 @@ const Lab1aVariance: React.FC = () => {
 
   useEffect(() => {
     const localData = localStorage.getItem("task");
+		let currStepString = localStorage.getItem("step");
+		let currStep = currStepString ? parseInt(currStepString, 10) : 1;
+		setAvailableStep(steps.slice(0, currStep+1));
+
     if (localData) {
       try {
         const parsedData = JSON.parse(localData) as Lab1AVariant;
@@ -120,6 +130,7 @@ const Lab1aVariance: React.FC = () => {
                 <Lab1AMatrixTaskStep
                     matrix={data.variant.variance.matrices[0]} 
                     step={1}
+										changeStepFunc={changeAvailableStep}
                 />
             );
         case 2:
@@ -127,6 +138,7 @@ const Lab1aVariance: React.FC = () => {
                 <Lab1AMatrixTaskStep
                     matrix={data.variant.variance.matrices[1]} 
                     step={2}
+										changeStepFunc={changeAvailableStep}
                 />
             );
         case 3:
@@ -134,6 +146,7 @@ const Lab1aVariance: React.FC = () => {
                 <Lab1AMatrixTaskStep
                     matrix={data.variant.variance.matrices[2]} 
                     step={3}
+										changeStepFunc={changeAvailableStep}
                 />
             );
         case 4:
@@ -141,6 +154,7 @@ const Lab1aVariance: React.FC = () => {
                 <Lab1AMatrixTaskStep
                     matrix={data.variant.variance.matrices[3]} 
                     step={4}
+										changeStepFunc={changeAvailableStep}
                 />
             );
         case 5:
@@ -148,11 +162,14 @@ const Lab1aVariance: React.FC = () => {
                 <Lab1AMatrixTaskStep
                     matrix={data.variant.variance.matrices[4]} 
                     step={5}
+										changeStepFunc={changeAvailableStep}
                 />
             );
         case 6:
             return (
-                <Lab1AResult/>
+                <Lab1AResult
+								changeStepFunc={changeAvailableStep}
+								/>
             );
         case 7:
             return (<Lab1AResultsTable/>);
@@ -173,7 +190,7 @@ const Lab1aVariance: React.FC = () => {
 			{<Timer/>}
       {data ? (
         <div>
-          <TaskBar activeStep={activeStep} steps={result} onStepChange={setActiveStep} />
+          <TaskBar activeStep={activeStep} steps={availableStep} onStepChange={setActiveStep} />
           {renderStepContent()}
         </div>
       ) : (

@@ -15,10 +15,10 @@ type reqRes = {
 
 type reqInput = {
   set: number[];
-  chosen_index: number;
+  index: number;
 };
 
-const ElementSelector = () => {
+const ElementSelector = ({changeStepFunc}) => {
   const [elements, setElements] = useState(['', '', '']);
   const [selectedElement, setSelectedElement] = useState<string | null>(null);
   const [chosenIndex, setChosenIndex] = useState(0);
@@ -70,13 +70,12 @@ const ElementSelector = () => {
     const numericElements = elements.map((el) => parseFloat(el)).filter((el) => !isNaN(el));
 
     if (numericElements.length !== elements.length) {
-      alert('Все элементы должны быть числами!');
       return;
     }
 
     const requestData: reqInput = {
       set: numericElements,
-      chosen_index: chosenIndex,
+      index: chosenIndex+1,
     };
     setReqIn(requestData);
 
@@ -97,6 +96,12 @@ const ElementSelector = () => {
       );
 
       setReqResp(response.data);
+			let currStepString = localStorage.getItem("step");
+				let currStep = currStepString ? parseInt(currStepString, 10) : 0;
+				if (currStep !== 0) {
+					localStorage.setItem("step", `${currStep+1}`);
+				}
+			changeStepFunc();
 
       if (response) {
         localStorage.setItem(`lab1a_6_data`, JSON.stringify(requestData));

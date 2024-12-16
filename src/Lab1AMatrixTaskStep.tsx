@@ -63,7 +63,7 @@ const task = [
 	"Расчет параметров матрицы важности по критерию Ликвидность",
 ];
 
-const Lab1AMatrixTaskStep: React.FC<MatrixTaskProps> = ({ matrix, step, title }) => {
+const Lab1AMatrixTaskStep: React.FC<MatrixTaskProps> = ({ matrix, step, changeStepFunc}) => {
   const [lambdaMax, setLambdaMax] = useState<number | string>("");
   const [IS, setIS] = useState<number | string>("");
   const [OS, setOS] = useState<number | string>("");
@@ -93,7 +93,7 @@ const Lab1AMatrixTaskStep: React.FC<MatrixTaskProps> = ({ matrix, step, title })
 			setIsSubmitted(false); 
 			setMatrix4(matrix.map(() => Array(4).fill('')));
 		}
-  }, [matrix, step, title]);
+  }, [matrix, step, changeStepFunc]);
 
 	function transposeMatrix(matrix) {
     if (!matrix || matrix.length === 0) return [];
@@ -170,6 +170,7 @@ const Lab1AMatrixTaskStep: React.FC<MatrixTaskProps> = ({ matrix, step, title })
 				if (currStep !== 0) {
 					localStorage.setItem("step", `${step+1}`);
 				}
+				changeStepFunc();
       } else {
         alert("Произошла ошибка при отправке данных.");
       }
@@ -180,8 +181,6 @@ const Lab1AMatrixTaskStep: React.FC<MatrixTaskProps> = ({ matrix, step, title })
 
   return (
     <div style={styles.container}>
-      {title && <h3 style={styles.title}>{title}</h3>}
-
       <div style={styles.matrixContainer}>
 			<h4>{task[step-1]}</h4>
 			<h5>(необходимо дать ответ для скорректированных значений матрицы)</h5>
