@@ -66,7 +66,6 @@ const ElementSelector = ({changeStepFunc}) => {
   };
 
   const handleSubmit = async () => {
-    // Преобразуем строки в числа перед отправкой
     const numericElements = elements.map((el) => parseFloat(el)).filter((el) => !isNaN(el));
 
     if (numericElements.length !== elements.length) {

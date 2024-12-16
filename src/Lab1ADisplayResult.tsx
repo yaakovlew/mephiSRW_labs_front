@@ -75,7 +75,6 @@ const Lab1AResultsTable: React.FC = () => {
   );
 };
 
-// Контейнер для всей страницы, для центрирования
 const containerStyle = {
   display: 'flex',
   justifyContent: 'center',
@@ -84,7 +83,6 @@ const containerStyle = {
   backgroundColor: '#f0f0f0',
 };
 
-// Контейнер с контентом, для центрирования внутри
 const contentStyle = {
   textAlign: 'center',
   padding: '20px',
@@ -95,7 +93,6 @@ const contentStyle = {
   maxWidth: '800px',
 };
 
-// Заголовок
 const headerStyle = {
   fontSize: '24px',
   fontWeight: 'bold',
@@ -103,32 +100,28 @@ const headerStyle = {
   color: '#333',
 };
 
-// Стиль для таблицы
 const tableStyle = {
   width: '100%',
   borderCollapse: 'collapse',
   marginBottom: '20px',
-  textAlign: 'center', // Добавлено для центрирования всего текста в таблице
+  textAlign: 'center',
 };
 
-// Стиль для заголовков таблицы
 const tableHeaderStyle = {
   padding: '10px',
   backgroundColor: '#f4f4f4',
   borderBottom: '1px solid #ccc',
   fontWeight: 'bold',
   color: '#555',
-  textAlign: 'center', // Центрируем текст в заголовке
+  textAlign: 'center', 
 };
 
-// Стиль для ячеек таблицы
 const tableCellStyle = {
   padding: '10px',
   borderBottom: '1px solid #ccc',
   color: '#555',
 };
 
-// Стиль для итоговой информации
 const totalStyle = {
   marginTop: '20px',
   fontSize: '18px',

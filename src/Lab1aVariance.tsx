@@ -47,7 +47,7 @@ const Lab1aVariance: React.FC = () => {
   const fetchData = async () => {
     setLoading(true);
     setError(null);
-
+		
     try {
       let token = localStorage.getItem("token");
       let labToken = localStorage.getItem("lab-token");
