@@ -12,6 +12,11 @@ type isRight = {
 	is_right: boolean;
 }
 
+const newTableData = {
+  sizes: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  ss: [0, 0, 0.58, 0.90, 1.12, 1.24, 1.32, 1.41, 1.45, 1.49],
+};
+
 type result = {
 	x: isRight[];
 	w: isRight[];
@@ -184,6 +189,26 @@ const Lab1AMatrixTaskStep: React.FC<MatrixTaskProps> = ({ matrix, step, changeSt
       <div style={styles.matrixContainer}>
 			<h4>{task[step-1]}</h4>
 			<h5>(необходимо дать ответ для скорректированных значений матрицы)</h5>
+				<div style={styles.matrixContainer}>
+					<table style={styles.smallTable}>
+						<thead>
+							<tr>
+								<th style={{ ...styles.smallCell, fontWeight: "bold" }}>Размер матрицы</th>
+								{newTableData.sizes.map((size, index) => (
+									<th key={index} style={styles.smallCell}>{size}</th>
+								))}
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<th style={{ ...styles.smallCell, fontWeight: "bold" }}>СС</th>
+								{newTableData.ss.map((value, index) => (
+									<td key={index} style={styles.smallCell}>{value}</td>
+								))}
+							</tr>
+						</tbody>
+					</table>
+			</div>
 			<table style={styles.table}>
 				<thead>
 					<tr>
@@ -421,6 +446,22 @@ const styles: { [key: string]: React.CSSProperties } = {
   buttonHover: {
     backgroundColor: "#45a049",
   },
+
+	smallTable: {
+		width: "60%",
+		margin: "0 auto",
+		fontSize: "12px",
+		borderCollapse: "collapse",
+	},
+	
+	smallCell: {
+		border: "1px solid #ddd",
+		padding: "6px", // 
+		textAlign: "center",
+		minWidth: "30px",
+		maxWidth: "50px",
+		height: "30px",
+	},
 };
 
 export default Lab1AMatrixTaskStep;
